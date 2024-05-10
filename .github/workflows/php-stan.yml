@@ -51,6 +51,8 @@ jobs:
       with:
         message: |
           PHPStan -> ${{env.PHP_STAN_ERRORS_COUNT}} errors found. Please fix them before merging.
+        comment_tag: phpstan
+        mode: delete
 
     - name: Break if there are PHP Stan errors
       if: inputs.STOP_ON_ERROR == true

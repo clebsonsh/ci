@@ -44,6 +44,8 @@ jobs:
       with:
         message: |
           PHP Unit -> ${{ env.PHP_UNIT_ERRORS_COUNT }} errors found. Please fix them before merging.
+        comment_tag: phpunit
+        mode: delete
 
     - name: Break if there are PHP Unit errors
       if: inputs.STOP_ON_ERROR == true
