@@ -23,7 +23,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  phpstan:
+  run:
     runs-on: ubuntu-latest
 
     steps:
@@ -53,6 +53,6 @@ jobs:
           PHPStan -> ${{env.PHP_STAN_ERRORS_COUNT}} errors found. Please fix them before merging.
 
     - name: Break if there are PHP Stan errors
-      if: inputs.STOP_ON_ERROR == 'true'
+      if: inputs.STOP_ON_ERROR == true
       run: |
         if [ ${{env.PHP_STAN_ERRORS_COUNT}} -gt 0 ]; then exit 1; fi

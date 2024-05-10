@@ -18,7 +18,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  tests:
+  run:
     runs-on: ubuntu-latest
 
     steps:
@@ -46,6 +46,6 @@ jobs:
           PHP Unit -> ${{ env.PHP_UNIT_ERRORS_COUNT }} errors found. Please fix them before merging.
 
     - name: Break if there are PHP Unit errors
-      if: inputs.STOP_ON_ERROR == 'true'
+      if: inputs.STOP_ON_ERROR == true
       run: |
         if [ ${{env.PHP_UNIT_ERRORS_COUNT}} -gt 0 ]; then exit 1; fi
