@@ -27,27 +27,27 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Run PHP Unit and save output to file
+    - name: Run Pest and save output to file
       uses: GuillaumeFalourd/command-output-file-action@v1.1
       with:
         command_line: vendor/bin/pest --no-coverage 
-        output_file_name: phpunit.txt
+        output_file_name: pest.txt
 
-    - name: Read PHP Unit errors and save count to PHP_UNIT_ERRORS_COUNT
+    - name: Read Pest errors and save count to PHP_UNIT_ERRORS_COUNT
       run: |
-        echo "PHP_UNIT_ERRORS_COUNT=$(cat ./phpunit.txt | grep FAILED | wc -l)" >> $GITHUB_ENV
+        echo "PEST_ERRORS_COUNT=$(cat ./pest.txt | grep FAILED | wc -l)" >> $GITHUB_ENV
       continue-on-error: true
 
     - name: Comment PR if there are PHP Unit errors
-      if: env.PHP_UNIT_ERRORS_COUNT > 0
+      if: env.PEST_ERRORS_COUNT > 0
       uses: thollander/actions-comment-pull-request@v2
       with:
         message: |
-          PHP Unit -> ${{ env.PHP_UNIT_ERRORS_COUNT }} errors found. Please fix them before merging.
+          PHP Unit -> ${{ env.PEST_ERRORS_COUNT }} errors found. Please fix them before merging.
         comment_tag: phpunit
         mode: recreate
 
     - name: Break if there are PHP Unit errors
       if: inputs.STOP_ON_ERROR == true
       run: |
-        if [ ${{env.PHP_UNIT_ERRORS_COUNT}} -gt 0 ]; then exit 1; fi
+        if [ ${{env.PEST_ERRORS_COUNT}} -gt 0 ]; then exit 1; fi
