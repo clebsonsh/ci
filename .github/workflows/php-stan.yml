@@ -4,19 +4,19 @@ on:
   workflow_call:
     inputs:
       PHP_STAN_LEVEL:
-        description: 'PHP Stan level'
+        description: "PHP Stan level"
         type: number
         required: true
         default: 0
       STOP_ON_ERROR:
-        description: 'Stop on error'
+        description: "Stop on error"
         type: boolean
         required: true
         default: true
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "*" ]
+    branches: ["*"]
 
 permissions:
   contents: read
