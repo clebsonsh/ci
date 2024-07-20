@@ -20,6 +20,10 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.3]
 
     steps:
     - uses: actions/checkout@v4
