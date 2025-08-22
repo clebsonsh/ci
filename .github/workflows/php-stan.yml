@@ -8,6 +8,11 @@ on:
         type: number
         required: true
         default: 0
+      PHP_STAN_FOLDERS:
+        description: "Folders that PHP Stan should analyse"
+        type: string
+        required: false
+        default: "src"
       STOP_ON_ERROR:
         description: "Stop on error"
         type: boolean
@@ -47,7 +52,7 @@ jobs:
       - name: Run PHP Stan and save output to file
         uses: GuillaumeFalourd/command-output-file-action@v1.1
         with:
-          command_line: vendor/bin/phpstan --no-progress --error-format=github  analyse -l ${{inputs.PHP_STAN_LEVEL}} src
+          command_line: vendor/bin/phpstan --no-progress --error-format=github  analyse -l ${{inputs.PHP_STAN_LEVEL}} ${{inputs.PHP_STAN_FOLDERS}}
           output_file_name: phpstan.txt
 
       - name: Read PHP Stan errors and save count to PHP_STAN_ERRORS_COUNT
