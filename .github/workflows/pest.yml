@@ -35,6 +35,9 @@ jobs:
         extensions: json, dom, curl, libxml, mbstring
         coverage: none
 
+    - name: Create .env file
+      run: cp .env.example .env
+
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
